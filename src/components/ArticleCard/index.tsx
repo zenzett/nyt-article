@@ -1,21 +1,20 @@
-import { FC } from "react";
-
-import { Article } from "../../api/nyt";
+import React from "react";
 
 interface ArticleCardProps {
-  article: Article;
+  title: string;
+  author?: string;
+  published_date: string;
+  url: string;
 }
 
-const ArticleCard: FC<ArticleCardProps> = ({ article }) => {
-  const { headline, byline, pub_date, web_url } = article;
-
+const ArticleCard: React.FC<ArticleCardProps> = ({ title, author, published_date, url }) => {
   return (
-    <div className="p-4 border rounded shadow">
-      <h2 className="font-bold text-lg">{headline.main}</h2>
-      <p className="text-sm text-gray-600">{byline?.original || "Unknown author"}</p>
-      <p className="text-sm text-gray-500">{new Date(pub_date).toLocaleDateString()}</p>
-      <a href={web_url} target="_blank" rel="noopener noreferrer" className="text-blue-500">
-        Read more
+    <div className="article-card">
+      <h2>{title}</h2>
+      <p>Author: {author || "Unknown Author"}</p>
+      <p>Published Date: {new Date(published_date).toLocaleDateString()}</p>
+      <a href={url} target="_blank" rel="noopener noreferrer">
+        Read Article
       </a>
     </div>
   );

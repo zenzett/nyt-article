@@ -1,32 +1,34 @@
 import { useState } from "react";
 
-import { Article, searchArticles } from "../../api/nyt";
-import ArticleCard from "../../components/ArticleCard";
+import searchArticles from "../../api/search";
+import ArticleList from "../../components/ArticleList";
+import Footer from "../../components/Footer";
+import Header from "../../components/Header";
+import LoadingComponent from "../../components/Loading";
 import SearchBar from "../../components/SearchBar";
 
 const Home = () => {
-  const [articles, setArticles] = useState<Article[]>([]);
-  const [error, setError] = useState<string | null>(null);
+  const [articles, setArticles] = useState<any[]>([]);
+  const [loading, setLoading] = useState(false);
 
   const handleSearch = async (query: string) => {
+    setLoading(true);
     try {
       const results = await searchArticles(query);
       setArticles(results);
-      setError(null);
-    } catch (e) {
-      setError("Failed to fetch articles. Please try again.");
+    } catch (error) {
+      console.error("Error fetching articles:", error);
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
-    <div className="p-4">
+    <div className="container">
+      <Header />
       <SearchBar onSearch={handleSearch} />
-      {error && <p className="text-red-500">{error}</p>}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-4">
-        {articles.map((article) => (
-          <ArticleCard key={article._id} article={article} />
-        ))}
-      </div>
+      {loading ? <LoadingComponent message="Loading articles..." /> : <ArticleList articles={articles} />}
+      <Footer />
     </div>
   );
 };
