@@ -1,4 +1,4 @@
-# 📰 NY Times Article Search SPA
+# 📰 New York Times Article SPA
 
 A simple Single Page Application (SPA) built with **React + TypeScript** that allows users to search and view articles from **The New York Times Article Search API**.
 
@@ -26,5 +26,5 @@ A simple Single Page Application (SPA) built with **React + TypeScript** that al
 
 ### 1. Clone the Repository
 ```bash
-git clone https://github.com/your-username/nyt-article-search.git
-cd nyt-article-search
+git clone https://github.com/your-username/nyt-article.git
+cd nyt-article
